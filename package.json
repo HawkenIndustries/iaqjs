@@ -1,0 +1,26 @@
+{
+  "name": "iaqjs",
+  "version": "1.0.0",
+  "description": "Client sdk to pull data from HawkenAQ and its supported systems",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HawkenIndustries/iaqjs.git"
+  },
+  "keywords": [
+    "Air",
+    "Quality",
+    "Indoor",
+    "Air",
+    "Quality"
+  ],
+  "author": "Gebin Maxey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HawkenIndustries/iaqjs/issues"
+  },
+  "homepage": "https://github.com/HawkenIndustries/iaqjs#readme"
+}
