@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    // "declarationMap": true,
+    "module": "es6",
+    "target": "es6",
+    "allowJs": true,
+    "declaration": true,
+    "outDir": "./dist/unpacked"
+  },
+  "files": ["src/iaqjs.ts"],
+}
