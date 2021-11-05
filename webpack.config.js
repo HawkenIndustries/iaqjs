@@ -7,7 +7,7 @@ const isProduction = process.env.NODE_ENV == 'production';
 
 
 const config = {
-    entry: './src/index.ts',
+    entry: isProduction ? './src/index.ts' : '/src/index.test.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "iaq.min.js"

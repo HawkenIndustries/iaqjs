@@ -2,3 +2,6 @@ node_modules
 dist/unpacked/index.d.ts
 dist/*.html
 *.html
+src/*.test.ts
+.env
+copier.js

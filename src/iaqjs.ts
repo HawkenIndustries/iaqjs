@@ -5,10 +5,10 @@ export default class IAQ{
     lastUpdated: Number;
     host: string;
     interval: ReturnType<typeof setInterval>
-    constructor(clientId: string){
+    constructor(clientId: string, host?: string){
         this.clientId = clientId
         this.lastUpdated = null;
-        this.host = "https://app.hawkenaq.com/api/client"
+        this.host = host ? host: "https://app.hawkenaq.com/api/client"
         this.interval = null;
     }
     generate(dom: Element, options: Options): void{
@@ -121,7 +121,7 @@ export default class IAQ{
             </div>
         </div>`
         }
-        dom.innerHTML = domString;
+        dom.innerHTML = `<div style="overflow:hidden;width:100%;height:100%;display:flex;align-items:flex-start;justify-content:center;">${domString}</div>`;
 
     }
 }

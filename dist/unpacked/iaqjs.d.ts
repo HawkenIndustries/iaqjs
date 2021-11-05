@@ -5,7 +5,7 @@ export default class IAQ {
     lastUpdated: Number;
     host: string;
     interval: ReturnType<typeof setInterval>;
-    constructor(clientId: string);
+    constructor(clientId: string, host?: string);
     generate(dom: Element, options: Options): void;
     getData(options: Options, updateElement?: Boolean, dom?: Element): Promise<Data>;
     getDefaultStyle(type: string, meta?: any): string;

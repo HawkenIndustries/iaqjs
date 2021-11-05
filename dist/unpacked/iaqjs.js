@@ -8,16 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 export default class IAQ {
-    constructor(clientId) {
+    constructor(clientId, host) {
         this.clientId = clientId;
         this.lastUpdated = null;
-        this.host = "https://app.hawkenaq.com/api/client";
+        this.host = host ? host : "https://app.hawkenaq.com/api/client";
         this.interval = null;
     }
     generate(dom, options) {
         this.getData(options, true, dom);
         if (this.interval == null) {
-            this.interval = setInterval(this.getData, 1000 * 60 * 5, options, true);
+            this.interval = setInterval(this.getData, 1000 * 60 * 5, options, true, dom);
         }
     }
     getData(options, updateElement = false, dom) {
@@ -134,6 +134,6 @@ export default class IAQ {
             </div>
         </div>`;
         }
-        dom.innerHTML = domString;
+        dom.innerHTML = `<div style="overflow:hidden;width:100%;height:100%;display:flex;align-items:flex-start;justify-content:center;">${domString}</div>`;
     }
 }
