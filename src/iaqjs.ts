@@ -45,7 +45,7 @@ export default class IAQ{
     }
     getDefaultStyle(type: string, meta?: any): string{
         if(type == "data-measurement"){
-            return `display: flex;height: 226px;width: 315px;padding-left: 32px;padding-right: 24px;padding-top: 16px;padding-bottom: 0px;color:white;background-color: rgb(37, 41, 74);border-radius: 20px;font-family:Roboto,sans-serif;font-weight:300`
+            return `display: flex;height: 226px;width: 315px;padding-left: 32px;padding-right: 24px;padding-top: 16px;padding-bottom: 0px;color:white;background-color: rgb(37, 41, 74);border-radius: 20px;font-family:Roboto,sans-serif;font-weight:300;text-decoration:none`
         } 
         else if (type == "data-measurement-values"){
             return `display:flex;align-items:baseline`
@@ -109,7 +109,7 @@ export default class IAQ{
         let domString = ``;
         for(let mm in data.measurements){
             let m = data.measurements[mm]
-            domString+= `<div data-measurement="${mm}" style="${this.getDefaultStyle('data-measurement')}">
+            domString+= `<a data-measurement="${mm}" style="${this.getDefaultStyle('data-measurement')}" href="https://www.hawkenaq.com/" target="_blank">
             <div data-details style="width:100%">
                 <div data-indicator style="${this.getDefaultStyle('data-indicator', m.curScore)}">${this.getIndicatorText(Number(m.curScore))}</div>
                 <div data-icon style="${this.getDefaultStyle('data-icon')}">${m.icon}</div>
@@ -119,9 +119,9 @@ export default class IAQ{
                 </div>
                 <div data-name style="${this.getDefaultStyle('data-name')}">${m.name}</div>
             </div>
-        </div>`
+        </a>`
         }
-        dom.innerHTML = `<a style="overflow:hidden;width:100%;height:100%;display:flex;align-items:flex-start;justify-content:center;text-decoration:none" href="https://www.hawkenaq.com/" target="_blank">${domString}</a>`;
+        dom.innerHTML = `<div style="overflow:hidden;width:100%;height:100%;display:flex;align-items:flex-start;justify-content:center;text-decoration:none">${domString}</div>`;
 
     }
 }
