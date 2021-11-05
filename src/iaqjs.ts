@@ -121,7 +121,7 @@ export default class IAQ{
             </div>
         </div>`
         }
-        dom.innerHTML = `<div style="overflow:hidden;width:100%;height:100%;display:flex;align-items:flex-start;justify-content:center;">${domString}</div>`;
+        dom.innerHTML = `<a style="overflow:hidden;width:100%;height:100%;display:flex;align-items:flex-start;justify-content:center;text-decoration:none" href="https://www.hawkenaq.com/" target="_blank">${domString}</a>`;
 
     }
 }
