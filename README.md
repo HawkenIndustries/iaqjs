@@ -9,7 +9,7 @@
 ```
 
 ```js
-    import IAQ from 'iaqqjs'
+    import IAQ from 'iaqjs'
 ```
 
 Javascript
