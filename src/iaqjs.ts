@@ -1,15 +1,23 @@
 import {Options, Data, Measurement} from './interfaces/reference'
+import {v4 as uuid} from 'uuid';
+
 export default class IAQ{
     clientId: string
     options: Options
     lastUpdated: Number;
     host: string;
+    sessionId: string;
     interval: ReturnType<typeof setInterval>
+    logged: Boolean
+    clickUrl: string
     constructor(clientId: string, host?: string){
         this.clientId = clientId
         this.lastUpdated = null;
         this.host = host ? host: "https://app.hawkenaq.com/api/client"
         this.interval = null;
+        this.sessionId = uuid();
+        this.logged = false;
+        this.clickUrl = "https://a.iaq.ai";
     }
     generate(dom: Element, options: Options): void{
         this.getData(options, true, dom);
@@ -17,12 +25,38 @@ export default class IAQ{
             this.interval = setInterval(this.getData, 1000 * 60 *5, options, true, dom);
         }
     }
+    private async reportInit(): Promise<void>{
+        try {
+            let url = new URL(this.host + "/event");
+            url.searchParams.append("clientKey", this.clientId);
+            url.searchParams.append('sessionId', this.sessionId);
+            url.searchParams.append('requestUrl', window.location.href);
+            url.searchParams.append('type', 'init');
+            let res = await fetch(url.toString());
+            res.json().then((d) => {
+                console.log(d);
+                this.logged = true
+            })
+        } catch (error) {
+            console.error(error);   
+        }
+    }
     async getData(options: Options, updateElement: Boolean = false, dom?: Element): Promise<Data>{
         try {
             let url = new URL(this.host);
             url.searchParams.append("clientKey", this.clientId);
+            url.searchParams.append('sessionId', this.sessionId);
+            url.searchParams.append('requestUrl', window.location.href);
+            if(dom){
+                url.searchParams.append('type', 'generate')
+            } else {
+                url.searchParams.append('type', 'data')
+            }
             if(options.widgetId){
                 url.searchParams.append("widgetId", options.widgetId);
+            }
+            if(this.logged == false){
+                this.reportInit();
             }
             if(Array.isArray(options.measurementIds)){
                 url.searchParams.append("measurementIds", JSON.stringify(options.measurementIds));
@@ -31,7 +65,7 @@ export default class IAQ{
             let data: Data  = await res.json()
             if(updateElement){
                 if(dom!=null){
-                    this.updateElement(data, dom)
+                    this.updateElement(data, dom, options.widgetId)
                 } else {
                     console.warn('Dom not initialize');
                 }
@@ -105,11 +139,15 @@ export default class IAQ{
         }
         return String(score);
     }
-    private updateElement(data: Data, dom: Element): void{
+    private updateElement(data: Data, dom: Element, widgetId?: string): void{
         let domString = ``;
+        let clickUrl = new URL(this.clickUrl + `/wc/${widgetId}`);
+        clickUrl.searchParams.append('sessionId', this.sessionId);
+        clickUrl.searchParams.append('widgetId', widgetId);
+        clickUrl.searchParams.append('requestUrl', window.location.href);
         for(let mm in data.measurements){
             let m = data.measurements[mm]
-            domString+= `<a data-measurement="${mm}" style="${this.getDefaultStyle('data-measurement')}" href="https://www.hawkenaq.com/" target="_blank">
+            domString+= `<a data-measurement="${mm}" style="${this.getDefaultStyle('data-measurement')}" href="${clickUrl.toString()}" target="_blank">
             <div data-details style="width:100%">
                 <div data-indicator style="${this.getDefaultStyle('data-indicator', m.curScore)}">${this.getIndicatorText(Number(m.curScore))}</div>
                 <div data-icon style="${this.getDefaultStyle('data-icon')}">${m.icon}</div>

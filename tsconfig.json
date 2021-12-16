@@ -3,8 +3,9 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     // "declarationMap": true,
-    "module": "es6",
-    "target": "es6",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "target": "es2020",
     "allowJs": true,
     "declaration": true,
     "outDir": "./dist/unpacked"

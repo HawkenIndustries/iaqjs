@@ -1,18 +1,13 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+import { v4 as uuid } from 'uuid';
 export default class IAQ {
     constructor(clientId, host) {
         this.clientId = clientId;
         this.lastUpdated = null;
         this.host = host ? host : "https://app.hawkenaq.com/api/client";
         this.interval = null;
+        this.sessionId = uuid();
+        this.logged = false;
+        this.clickUrl = "https://a.iaq.ai";
     }
     generate(dom, options) {
         this.getData(options, true, dom);
@@ -20,34 +15,60 @@ export default class IAQ {
             this.interval = setInterval(this.getData, 1000 * 60 * 5, options, true, dom);
         }
     }
-    getData(options, updateElement = false, dom) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                let url = new URL(this.host);
-                url.searchParams.append("clientKey", this.clientId);
-                if (options.widgetId) {
-                    url.searchParams.append("widgetId", options.widgetId);
-                }
-                if (Array.isArray(options.measurementIds)) {
-                    url.searchParams.append("measurementIds", JSON.stringify(options.measurementIds));
-                }
-                let res = yield fetch(url.toString());
-                let data = yield res.json();
-                if (updateElement) {
-                    if (dom != null) {
-                        this.updateElement(data, dom);
-                    }
-                    else {
-                        console.warn('Dom not initialize');
-                    }
-                }
-                console.log(data);
-                return data;
+    async reportInit() {
+        try {
+            let url = new URL(this.host + "/event");
+            url.searchParams.append("clientKey", this.clientId);
+            url.searchParams.append('sessionId', this.sessionId);
+            url.searchParams.append('requestUrl', window.location.href);
+            url.searchParams.append('type', 'init');
+            let res = await fetch(url.toString());
+            res.json().then((d) => {
+                console.log(d);
+                this.logged = true;
+            });
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    async getData(options, updateElement = false, dom) {
+        try {
+            let url = new URL(this.host);
+            url.searchParams.append("clientKey", this.clientId);
+            url.searchParams.append('sessionId', this.sessionId);
+            url.searchParams.append('requestUrl', window.location.href);
+            if (dom) {
+                url.searchParams.append('type', 'generate');
             }
-            catch (error) {
-                console.error(error);
+            else {
+                url.searchParams.append('type', 'data');
             }
-        });
+            if (options.widgetId) {
+                url.searchParams.append("widgetId", options.widgetId);
+            }
+            if (this.logged == false) {
+                this.reportInit();
+            }
+            if (Array.isArray(options.measurementIds)) {
+                url.searchParams.append("measurementIds", JSON.stringify(options.measurementIds));
+            }
+            let res = await fetch(url.toString());
+            let data = await res.json();
+            if (updateElement) {
+                if (dom != null) {
+                    this.updateElement(data, dom, options.widgetId);
+                }
+                else {
+                    console.warn('Dom not initialize');
+                }
+            }
+            console.log(data);
+            return data;
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
     getDefaultStyle(type, meta) {
         if (type == "data-measurement") {
@@ -118,11 +139,15 @@ export default class IAQ {
         }
         return String(score);
     }
-    updateElement(data, dom) {
+    updateElement(data, dom, widgetId) {
         let domString = ``;
+        let clickUrl = new URL(this.clickUrl + `/wc/${widgetId}`);
+        clickUrl.searchParams.append('sessionId', this.sessionId);
+        clickUrl.searchParams.append('widgetId', widgetId);
+        clickUrl.searchParams.append('requestUrl', window.location.href);
         for (let mm in data.measurements) {
             let m = data.measurements[mm];
-            domString += `<a data-measurement="${mm}" style="${this.getDefaultStyle('data-measurement')}" href="https://www.hawkenaq.com/" target="_blank">
+            domString += `<a data-measurement="${mm}" style="${this.getDefaultStyle('data-measurement')}" href="${clickUrl.toString()}" target="_blank">
             <div data-details style="width:100%">
                 <div data-indicator style="${this.getDefaultStyle('data-indicator', m.curScore)}">${this.getIndicatorText(Number(m.curScore))}</div>
                 <div data-icon style="${this.getDefaultStyle('data-icon')}">${m.icon}</div>

@@ -4,18 +4,12 @@ export interface Theme {
     iconColor: string,
     unitColor: string,
 }
-export interface Size {
-    height: Number,
-    width: Number,
-}
 
 export interface Options {
     measurementIds?: Array<string>,
     widgetId?: string,
-    autoUpdate?: Boolean,
-    updateInterval?: Number,
-    theme?: Theme
-    size?: Size
+    theme?: 'dark' | 'lights' | 'light2' | 'blue',
+    size?: 'mini' | 'small' | 'medium' | 'large'
 }
 
 export interface Measurement {
