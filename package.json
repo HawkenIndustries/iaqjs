@@ -1,6 +1,6 @@
 {
   "name": "my-webpack-project",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "My webpack project",
   "main": "./dist/unpacked/iaqjs.js",
   "types": "./dist/unpacked/iaqjs.d.ts",
