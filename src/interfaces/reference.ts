@@ -1,3 +1,7 @@
+declare global {
+    interface Window { IAQ: any; }
+}
+
 export interface Theme {
     scoreColor: string,
     backgroundColor: string,
@@ -6,22 +10,22 @@ export interface Theme {
 }
 
 export interface Options {
-    measurementIds?: Array<string>,
-    widgetId?: string,
-    theme?: 'dark' | 'lights' | 'light2' | 'blue',
-    size?: 'mini' | 'small' | 'medium' | 'large'
+    theme?: 'dark' | 'light' | 'light2' | 'blue',
+    size?: 'mini' | 'small' | 'medium' | 'large',
+    bgGradient?: Boolean,
+    iconMode?: Boolean,
 }
 
 export interface Measurement {
     type: string,
-    curVal?: string,
-    curScore: string,
+    curVal?: any,
+    curScore: number,
     icon: string,
     unit?: string,
     name?: string,
     toUse?: string
 }
 export interface Data {
-    name: String,
+    name: string,
     measurements: Array<Measurement>
 }

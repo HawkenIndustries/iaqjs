@@ -1,0 +1,540 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+$defaultFont: 'Roboto', sans-serif;
+$lightBg: #ffffff;
+$darkText: #021449;
+$lightText: #ffffff;
+$indicatorText: #02C39A;
+$logoDark: #1D213C;
+$logoLight: #FFFFFF;
+$blueBg: #3456F7;
+$darkBg: #25294A;
+
+$scoreExcellent: #02C39A;
+$scoreModerate: #FFCA3A;
+$scorePoor: #FF5050;
+
+$darkGradient: linear-gradient(136.04deg, #25294A 11.89%, #020308 149.83%);
+$lightGradient: linear-gradient(123.1deg, #FFFFFF 24.7%, #D4D4D4 151.23%, #D4D4D4 151.23%);
+$blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
+
+.iaq-container-parent {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    font-family: $defaultFont;
+    font-weight: 400;
+    display: flex;
+    .iaq-score-moderate {
+        color: $scoreModerate;
+    }
+    .iaq-score-excellent {
+        color: $scoreExcellent;
+    }
+    .iaq-score-poor {
+        color: $scorePoor;
+    }
+    .iaq-dark-text {
+        color: $darkText;
+    }
+    .iaq-light-text {
+        color: $lightBg;
+    }
+    .iaq-container-small {
+        width: 364px;
+        height: 96px;
+        box-sizing: border-box;
+        border-radius: 100px;
+        display: flex;
+        cursor: pointer;
+        text-decoration: none !important;
+        &.iaq-light {
+            background: $lightBg;
+            border:  2px solid #f0f0f0;
+            color: $darkText;
+            [data-unit] {
+                color: rgba(2, 20, 73, 0.4)
+            }
+            &.gradient {
+                background: $lightGradient;
+            }
+        }
+        &.iaq-light-2 {
+            background: $lightBg;
+            border: 2px solid $darkText;
+            color: $darkText;
+            [data-unit] {
+                color: rgba(2, 20, 73, 0.4)
+            }
+            &.gradient {
+                background: $lightGradient;
+            }
+        }
+        &.iaq-blue {
+            background: $blueBg;
+            color: $lightText;
+            [data-unit] {
+                color:  rgba(255, 255, 255, 0.4);
+            }
+            &.gradient {
+                background: $blueGradient;
+            }
+            .iaq-indicator {
+                &.iaq-measurement-icon {
+                    svg {
+                        height: 48px;
+                        width: 48px;
+                    }
+                    path {
+                        fill: $lightText;
+                    }
+                }
+              
+            }
+        }
+        &.iaq-dark {
+            background: $darkBg;
+            color: $lightText;
+            [data-unit] {
+                color: rgba(255, 255, 255, 0.4);
+            }
+            &.gradient {
+                background: $darkGradient;
+            }
+            .iaq-indicator {
+                &.iaq-measurement-icon {
+                    path {
+                        fill: $lightText;
+                    }
+                }
+              
+            }
+        }
+        .iaq-indicator {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .iaq-measurement-details {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .iaq-measurement-name {
+                margin-left: 18px;
+                line-height: 32px;
+                font-size: 20px;
+                [data-unit] {
+                    font-size: 12px;
+                }
+            }
+            .iaq-measurement-indicator {
+                margin-left:18px;
+                line-height: 30px;
+                font-size: 16px;
+                font-family: Roboto;
+            }
+        }
+        .iaq-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+            width: 25%;
+            .iaq-logo-measurement {
+                font-size: 16px;
+                line-height: 30px;
+            }
+            &.iaq-light {
+                path {
+                    fill: $logoLight;
+                }
+                
+            }
+            &.iaq-dark {
+                path {
+                    fill: $logoDark;
+                }
+            }
+        }
+    }
+    .iaq-container-mini {
+        width: 343px;
+        height: 64px;
+        box-sizing: border-box;
+        border-radius: 100px;
+        display: flex;
+        cursor: pointer;
+        text-decoration: none !important;
+        &.iaq-light {
+            background: $lightBg;
+            border:  2px solid #f0f0f0;
+            color: $darkText;
+            [data-unit] {
+                color: rgba(2, 20, 73, 0.4)
+            }
+            &.gradient {
+                background: $lightGradient;
+            }
+        }
+        &.iaq-light-2 {
+            background: $lightBg;
+            border: 2px solid $darkText;
+            color: $darkText;
+            [data-unit] {
+                color: rgba(2, 20, 73, 0.4)
+            }
+            &.gradient {
+                background: $lightGradient;
+            }
+        }
+        &.iaq-blue {
+            background: $blueBg;
+            color: $lightText;
+            [data-unit] {
+                color:  rgba(255, 255, 255, 0.4);
+            }
+            &.gradient {
+                background: $blueGradient;
+            }
+            .iaq-indicator {
+                &.iaq-measurement-icon {
+                    svg {
+                        height: 48px;
+                        width: 48px;
+                    }
+                    path {
+                        fill: $lightText;
+                    }
+                }
+              
+            }
+        }
+        &.iaq-dark {
+            background: $darkBg;
+            color: $lightText;
+            [data-unit] {
+                color: rgba(255, 255, 255, 0.4);
+            }
+            &.gradient {
+                background: $darkGradient;
+            }
+            .iaq-indicator {
+                &.iaq-measurement-icon {
+                    path {
+                        fill: $lightText;
+                    }
+                }
+              
+            }
+        }
+        .iaq-indicator {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .iaq-measurement-details {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .iaq-measurement-name {
+                margin-left: 16px;
+                line-height: 28px;
+                font-size: 18px;
+                [data-unit] {
+                    font-size: 12px;
+                }
+            }
+            .iaq-measurement-indicator {
+                margin-left:16px;
+                line-height:20px;
+                font-size: 14px;
+                font-family: Roboto;
+            }
+        }
+        .iaq-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+            width: 25%;
+            .iaq-logo-measurement {
+                font-size: 14px;
+                line-height: 20px;
+            }
+            &.iaq-light {
+                path {
+                    fill: $logoLight;
+                }
+                
+            }
+            &.iaq-dark {
+                path {
+                    fill: $logoDark;
+                }
+            }
+        }
+    }
+    .iaq-container-medium {
+        width: 316px;
+        height: 214px;
+        box-sizing: content-box;
+        display: flex;
+        cursor: pointer;
+        position: relative;
+        border-radius: 20px;
+        text-decoration: none !important;
+        svg {
+            display: block
+        }
+        &.iaq-light {
+            background: $lightBg;
+            border:  2px solid #f0f0f0;
+            color: $darkText;
+            &.gradient {
+                background: $lightGradient;
+            }
+            [data-unit] {
+                color: rgba(2, 20, 73, 0.4)
+            }
+            .iaq-logo {
+                path {
+                    fill: $logoDark;
+                }
+            }
+        }
+        &.iaq-light-2 {
+            background: $lightBg;
+            border: 2px solid $darkText;
+            color: $darkText;
+            &.gradient {
+                background: $lightGradient;
+            }
+            [data-unit] {
+                color: rgba(2, 20, 73, 0.4)
+            }
+            .iaq-logo {
+                path {
+                    fill: $logoDark;
+                }
+            }
+            
+        }
+        &.iaq-blue {
+            background: $blueBg;
+            color: $lightText;
+            border: 2px solid transparent;
+            &.gradient {
+                background: $blueGradient;
+            }
+            [data-unit] {
+                color:  rgba(255, 255, 255, 0.4);
+            }
+            .iaq-measurement-icon {
+                path {
+                    fill: $logoLight;
+                }
+            }
+            .iaq-logo {
+                path {
+                    fill: $logoLight;
+                }
+            }
+        }
+        &.iaq-dark {
+            background: $darkBg;
+            color: $lightText;
+            border: 2px solid transparent;
+            [data-unit] {
+                color: rgba(255, 255, 255, 0.4);
+            }
+            &.gradient {
+                background: $darkGradient;
+            }
+            .iaq-logo {
+                path {
+                    fill: $logoLight;
+                }
+            }
+            
+        }
+        .iaq-measurement-details {
+            height: 100%;
+            width: 60%;
+            position: relative;
+            display: flex;
+            flex-direction: column;;
+            > * {
+                margin-left: 32px;
+            }
+            .iaq-measurement-icon {
+                margin-top: 34.3px;
+                margin-bottom: 18.32px
+            } 
+            .iaq-measurement-values {
+                font-size: 48px;
+                line-height: 62px;
+                font-weight: 300;
+                [data-unit] {
+                    font-size: 18px;
+                }
+            }
+            .iaq-measurement-name {
+                font-size: 24px;
+                line-height: 33px;
+            }
+        }
+        .iaq-logo-and-indicator {
+            height: 100%;
+            width: 40%;
+            position: relative;
+            > * {
+                position: absolute;
+                right: 24px;
+            }
+            .iaq-logo {
+                bottom: 34px;
+            }
+            .iaq-score-indicator {
+                top: 24px;
+                line-height: 30px;
+                font-size: 18px;
+            }
+        }
+    }
+    .iaq-container-large {
+        width: 343px;
+        height: 132px;
+        box-sizing: content-box;
+        display: flex;
+        cursor: pointer;
+        position: relative;
+        border-radius: 20px;
+        text-decoration: none !important;
+        svg {
+            display: block
+        }
+        &.iaq-light {
+            background: $lightBg;
+            border:  2px solid #f0f0f0;
+            color: $darkText;
+            &.gradient {
+                background: $lightGradient;
+            }
+            [data-unit] {
+                color: rgba(2, 20, 73, 0.4)
+            }
+            .iaq-logo {
+                path {
+                    fill: $logoDark;
+                }
+            }
+        }
+        &.iaq-light-2 {
+            background: $lightBg;
+            border: 2px solid $darkText;
+            color: $darkText;
+            &.gradient {
+                background: $lightGradient;
+            }
+            [data-unit] {
+                color: rgba(2, 20, 73, 0.4)
+            }
+            .iaq-logo {
+                path {
+                    fill: $logoDark;
+                }
+            }
+            
+        }
+        &.iaq-blue {
+            background: $blueBg;
+            color: $lightText;
+            border: 2px solid transparent;
+            &.gradient {
+                background: $blueGradient;
+            }
+            [data-unit] {
+                color:  rgba(255, 255, 255, 0.4);
+            }
+            .iaq-measurement-icon {
+                path {
+                    fill: $logoLight;
+                }
+            }
+            .iaq-logo {
+                path {
+                    fill: $logoLight;
+                }
+            }
+        }
+        &.iaq-dark {
+            background: $darkBg;
+            color: $lightText;
+            border: 2px solid transparent;
+            [data-unit] {
+                color: rgba(255, 255, 255, 0.4);
+            }
+            &.gradient {
+                background: $darkGradient;
+            }
+            .iaq-logo {
+                path {
+                    fill: $logoLight;
+                }
+            }
+            
+        }
+        .iaq-measurement-details {
+            height: 100%;
+            width: 60%;
+            position: relative;
+            display: flex;
+            flex-direction: column;;
+            > * {
+                margin-left: 16px;
+            }
+            .iaq-measurement-icon {
+                margin-top: 17px;
+                margin-bottom: 18px
+            } 
+            .iaq-measurement-values {
+                font-size: 24px;
+                font-weight: 300;
+                [data-unit] {
+                    font-size: 18px;
+                }
+            }
+            .iaq-measurement-name {
+                font-size: 16px;
+                line-height: 32px;
+            }
+        }
+        .iaq-logo-and-indicator {
+            height: 100%;
+            width: 40%;
+            position: relative;
+            > * {
+                position: absolute;
+                right: 16px;
+            }
+            .iaq-logo {
+                bottom: 22px;
+            }
+            .iaq-score-indicator {
+                top: 16px;
+                line-height: 30px;
+                font-size: 16px;
+            }
+        }
+    }
+}

@@ -1,19 +1,24 @@
 import { Options, Data } from './interfaces/reference';
+import "./styles/index.scss";
+interface UserParams {
+    [key: string]: any;
+}
 export default class IAQ {
     clientId: string;
     options: Options;
-    lastUpdated: Number;
+    lastUpdated: number;
     host: string;
     sessionId: string;
     interval: ReturnType<typeof setInterval>;
     logged: Boolean;
     clickUrl: string;
-    constructor(clientId: string, host?: string);
-    generate(dom: Element, options: Options): void;
+    uParams: UserParams;
+    constructor(clientId: string, host?: string, uParams?: UserParams);
+    generate(dom: Element, widgetId: string, options: Options): void;
     private reportInit;
-    getData(options: Options, updateElement?: Boolean, dom?: Element): Promise<Data>;
-    getDefaultStyle(type: string, meta?: any): string;
-    private getIndicatorText;
-    private scoreToUse;
+    getData(widgetId: string, generate?: Boolean): Promise<Data>;
+    private getIndicatorValues;
+    private generateRadialSvg;
     private updateElement;
 }
+export {};

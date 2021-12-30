@@ -1,13 +1,15 @@
 import { v4 as uuid } from 'uuid';
+import "./styles/index.scss";
 export default class IAQ {
-    constructor(clientId, host) {
+    constructor(clientId, host, uParams) {
         this.clientId = clientId;
         this.lastUpdated = null;
         this.host = host ? host : "https://app.hawkenaq.com/api/client";
         this.interval = null;
         this.sessionId = uuid();
-        this.logged = false;
         this.clickUrl = "https://a.iaq.ai";
+        this.uParams = uParams;
+        this.reportInit();
     }
     generate(dom, options) {
         this.getData(options, true, dom);
@@ -17,6 +19,9 @@ export default class IAQ {
     }
     async reportInit() {
         try {
+            if (window.IAQ._tracker?.[this.clientId]) {
+                return null;
+            }
             let url = new URL(this.host + "/event");
             url.searchParams.append("clientKey", this.clientId);
             url.searchParams.append('sessionId', this.sessionId);
@@ -25,7 +30,13 @@ export default class IAQ {
             let res = await fetch(url.toString());
             res.json().then((d) => {
                 console.log(d);
-                this.logged = true;
+                if (window.IAQ._tracker != null) {
+                    window.IAQ._tracker[this.clientId] = true;
+                }
+                else {
+                    window.IAQ._tracker = new Object();
+                    window.IAQ._tracker[this.clientId] = true;
+                }
             });
         }
         catch (error) {
@@ -49,9 +60,6 @@ export default class IAQ {
             }
             if (this.logged == false) {
                 this.reportInit();
-            }
-            if (Array.isArray(options.measurementIds)) {
-                url.searchParams.append("measurementIds", JSON.stringify(options.measurementIds));
             }
             let res = await fetch(url.toString());
             let data = await res.json();
@@ -145,6 +153,11 @@ export default class IAQ {
         clickUrl.searchParams.append('sessionId', this.sessionId);
         clickUrl.searchParams.append('widgetId', widgetId);
         clickUrl.searchParams.append('requestUrl', window.location.href);
+        if (this.uParams) {
+            for (let param in this.uParams) {
+                clickUrl.searchParams.append(`uParams.${param}`, this.uParams[param]);
+            }
+        }
         for (let mm in data.measurements) {
             let m = data.measurements[mm];
             domString += `<a data-measurement="${mm}" style="${this.getDefaultStyle('data-measurement')}" href="${clickUrl.toString()}" target="_blank">
