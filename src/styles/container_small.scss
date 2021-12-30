@@ -1,0 +1,140 @@
+.iaq-container-small {
+    width: 364px;
+    height: 96px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    display: flex;
+    cursor: pointer;
+    text-decoration: none !important;
+    &.iaq-light {
+        background: $lightBg;
+        border:  2px solid #f0f0f0;
+        color: $darkText;
+        [data-unit] {
+            color: rgba(2, 20, 73, 0.4)
+        }
+        &.gradient {
+            background: $lightGradient;
+        }
+    }
+    &.iaq-light-2 {
+        background: $lightBg;
+        border: 2px solid $darkText;
+        color: $darkText;
+        [data-unit] {
+            color: rgba(2, 20, 73, 0.4)
+        }
+        &.gradient {
+            background: $lightGradient;
+        }
+    }
+    &.iaq-blue {
+        background: $blueBg;
+        color: $lightText;
+        [data-unit] {
+            color:  rgba(255, 255, 255, 0.4);
+        }
+        &.gradient {
+            background: $blueGradient;
+        }
+        .iaq-indicator {
+            &.iaq-measurement-icon {
+                svg {
+                    height: 48px;
+                    width: 48px;
+                }
+                path {
+                    fill: $lightText;
+                }
+            }
+        
+        }
+    }
+    &.iaq-dark {
+        background: $darkBg;
+        color: $lightText;
+        [data-unit] {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        &.gradient {
+            background: $darkGradient;
+        }
+        .iaq-indicator {
+            &.iaq-measurement-icon {
+                path {
+                    fill: $lightText;
+                }
+            }
+          
+        }
+    }
+    .iaq-indicator {
+        width: 25%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+    }
+    .iaq-measurement-details {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        > * {
+            margin-left: 5px;
+        }
+        .iaq-measurement-name {
+            line-height: 32px;
+            font-size: 24px;
+            [data-unit] {
+                font-size: 12px;
+            }
+            &.iaq-radial-mode {
+                font-size: 20px;
+            }
+        }
+        .iaq-measurement-indicator {
+            line-height: 30px;
+            font-size: 16px;
+        }
+    }
+    .iaq-logo {
+        // display: flex;
+        // align-items: flex-end;
+        // justify-content: center;
+        // flex-direction: column;
+        position: relative;
+        height: 100%;
+        width: 25%;
+         > * {
+            position: absolute;
+            right: 35px;
+        }
+        .iaq-logo-measurement {
+            font-size: 16px;
+            line-height: 30px;
+            top: 13px
+        }
+        [data-svg-icon] {
+            bottom: 34px;
+        }
+        &.iaq-light {
+            path {
+                fill: $logoLight;
+            }
+            
+        }
+        &.iaq-dark {
+            path {
+                fill: $logoDark;
+            }
+        }
+        &.iaq-lower-logo {
+            [data-svg-icon]{
+                bottom: 24px;
+            }
+        }
+    }
+}

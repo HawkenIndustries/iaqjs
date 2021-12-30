@@ -27,7 +27,7 @@ function htmlToElement(html: string): Element{
 }
 
 const DomStrings: DomStrings = {
-    small: `<div class="iaq-container-parent"> <a data-iaq-container> <div class="iaq-indicator"> </div><div class="iaq-measurement-details"> <div class="iaq-measurement-name"> <span data-name></span> <span data-unit></span> </div><div class="iaq-measurement-indicator"></div></div><div class="iaq-logo"> <div class="iaq-logo-measurement"></div><svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0 28L7.96584 5.37409H12.2163L9.87 12.0377H17.3081L21.546 0H25.7965L17.8306 22.6264H13.5802L16.1483 15.333H8.71018L4.25043 28H0Z"></path> </svg> </div></a></div>`,
+    small: `<div class="iaq-container-parent"> <a data-iaq-container> <div class="iaq-indicator"> </div><div class="iaq-measurement-details"> <div class="iaq-measurement-name"> <span data-name></span> <span data-unit></span> </div><div class="iaq-measurement-indicator"></div></div><div class="iaq-logo"> <div class="iaq-logo-measurement"></div><svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg" data-svg-icon> <path fill-rule="evenodd" clip-rule="evenodd" d="M0 28L7.96584 5.37409H12.2163L9.87 12.0377H17.3081L21.546 0H25.7965L17.8306 22.6264H13.5802L16.1483 15.333H8.71018L4.25043 28H0Z"></path> </svg> </div></a></div>`,
     // radialSvg: `<svg viewBox="0 0 36 36" width="72px" height="72px"> <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4" stroke="#FFD22B" style="stroke-opacity: 0.09;" data-stroke></path> <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#FFD22B" stroke-width="4" stroke-dasharray="57,100" stroke-linecap="round" data-stroke-dasharray></path> <text x="10" y="23.5" font-size="14px" font-weight="300" data-text></text></svg>`,
     large: `<div class="iaq-container-parent"> <a data-iaq-container> <div class="iaq-measurement-details"> <div class="iaq-measurement-icon"> </div><div class="iaq-measurement-values"> <span data-value></span> <span data-unit></span> </div><div class="iaq-measurement-name"> </div></div><div class="iaq-logo-and-indicator"> <div class="iaq-logo"> <svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0 28L7.96584 5.37409H12.2163L9.87 12.0377H17.3081L21.546 0H25.7965L17.8306 22.6264H13.5802L16.1483 15.333H8.71018L4.25043 28H0Z"/> </svg> </div><div class="iaq-score-indicator"> </div></div></a> </div>`
 }
@@ -138,6 +138,7 @@ export default class IAQ{
         let i = this.getIndicatorValues(s)
         let textFill = "#021449"
         let opacity = 1
+        let strokeOpacity = 0.09
         if(theme == "dark" || theme == "blue"){
             textFill = "#ffffff"
         } else {
@@ -145,21 +146,32 @@ export default class IAQ{
         }
         let svgSize: number = 72;
         let viewBox = "0 0 36 36"
+        let color = i.color;
+        let gaussianColor = i.color
+        let circle ="";
         if(size == "mini"){
-            svgSize = 54;
+            svgSize = 48;
             // viewBox = "0 0 64 64"
         }
+        if(theme == "blue"){
+            color = "white";
+            gaussianColor = "black"
+            opacity = 0.3
+            strokeOpacity = 0;
+            circle = `<circle cx="18" cy="18" r="18" fill="rgba(255,255,255,0.2)"></circle>`
+        }
         let str = `
-        <svg viewBox="${viewBox}" width="${svgSize}px" height="${svgSize}px">
+        <svg viewBox="${viewBox}" width="${svgSize}px" height="${svgSize}px" data-radial-graph>
             <defs>
                 <filter id="gaussianBlur">
                     <feGaussianBlur stdDeviation="2"></feGaussianBlur>
                 </filter>
             </defs>
-            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4" stroke="${i.color}" style="stroke-opacity: 0.09;" data-stroke></path>
-            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${i.color}" style="filter: url(#gaussianBlur);stroke-opacity:${opacity}" stroke-width="4" stroke-dasharray="${i.score},100" stroke-linecap="round" data-stroke-dasharray></path>
-            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${i.color}" stroke-width="4" stroke-dasharray="${i.score},100" stroke-linecap="round" data-stroke-dasharray></path>
+            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4" stroke="${color}" style="stroke-opacity: ${strokeOpacity};" data-stroke></path>
+            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${gaussianColor}" style="filter: url(#gaussianBlur);stroke-opacity:${opacity}" stroke-width="4" stroke-dasharray="${i.score},100" stroke-linecap="round" data-stroke-dasharray></path>
+            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${color}" stroke-width="4" stroke-dasharray="${i.score},100" stroke-linecap="round" data-stroke-dasharray></path>
             <text x="10" y="23.5" font-size="14px" font-weight="300" fill="${textFill}" data-text>${Math.round(i.score)}</text>
+            ${circle}
         </svg>`
         return htmlToElement(str);
     }
@@ -224,9 +236,20 @@ export default class IAQ{
                 childNode.querySelector('.iaq-logo-measurement').classList.add(
                     this.getIndicatorValues(measurement.curScore).class
                 )
+                childNode.querySelector('.iaq-logo').classList.add(
+                    'iaq-lower-logo'
+                )
+                if(options.size == "mini"){
+                    let miniSvgIcon = childNode.querySelector('[data-svg-icon]');
+                    miniSvgIcon.setAttribute("width", "22px");
+                    miniSvgIcon.setAttribute("height", "24px");
+                    miniSvgIcon.setAttribute("data-mini-svg", "");
+                }
+
             } else {
                 iaqIndicator.appendChild(this.generateRadialSvg(measurement.curScore, options.theme, options.size))
                 iaqName.innerHTML = data.name
+                iaqName.classList.add('iaq-radial-mode')
                 if(iaqMeasurementIndicator){
                     iaqMeasurementIndicator.innerHTML = this.getIndicatorValues(measurement.curScore).text
                     iaqMeasurementIndicator.classList.add(this.getIndicatorValues(measurement.curScore).class)

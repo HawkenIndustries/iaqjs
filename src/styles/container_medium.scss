@@ -1,0 +1,127 @@
+.iaq-container-medium {
+    width: 316px;
+    height: 214px;
+    box-sizing: content-box;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    border-radius: 20px;
+    text-decoration: none !important;
+    svg {
+        display: block
+    }
+    &.iaq-light {
+        background: $lightBg;
+        border:  2px solid #f0f0f0;
+        color: $darkText;
+        &.gradient {
+            background: $lightGradient;
+        }
+        [data-unit] {
+            color: rgba(2, 20, 73, 0.4)
+        }
+        .iaq-logo {
+            path {
+                fill: $logoDark;
+            }
+        }
+    }
+    &.iaq-light-2 {
+        background: $lightBg;
+        border: 2px solid $darkText;
+        color: $darkText;
+        &.gradient {
+            background: $lightGradient;
+        }
+        [data-unit] {
+            color: rgba(2, 20, 73, 0.4)
+        }
+        .iaq-logo {
+            path {
+                fill: $logoDark;
+            }
+        }
+        
+    }
+    &.iaq-blue {
+        background: $blueBg;
+        color: $lightText;
+        border: 2px solid transparent;
+        &.gradient {
+            background: $blueGradient;
+        }
+        [data-unit] {
+            color:  rgba(255, 255, 255, 0.4);
+        }
+        .iaq-measurement-icon {
+            path {
+                fill: $logoLight;
+            }
+        }
+        .iaq-logo {
+            path {
+                fill: $logoLight;
+            }
+        }
+    }
+    &.iaq-dark {
+        background: $darkBg;
+        color: $lightText;
+        border: 2px solid transparent;
+        [data-unit] {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        &.gradient {
+            background: $darkGradient;
+        }
+        .iaq-logo {
+            path {
+                fill: $logoLight;
+            }
+        }
+        
+    }
+    .iaq-measurement-details {
+        height: 100%;
+        width: 80%;
+        position: relative;
+        display: flex;
+        flex-direction: column;;
+        > * {
+            margin-left: 32px;
+        }
+        .iaq-measurement-icon {
+            margin-top: 34.3px;
+            margin-bottom: 18.32px
+        } 
+        .iaq-measurement-values {
+            font-size: 48px;
+            margin-bottom: 6px;
+            font-weight: 300;
+            [data-unit] {
+                font-size: 18px;
+                font-weight: 400;
+            }
+        }
+        .iaq-measurement-name {
+            font-size: 24px;
+        }
+    }
+    .iaq-logo-and-indicator {
+        height: 100%;
+        width: 20%;
+        position: relative;
+        > * {
+            position: absolute;
+            right: 24px;
+        }
+        .iaq-logo {
+            bottom: 33px;
+        }
+        .iaq-score-indicator {
+            top: 24px;
+            line-height: 30px;
+            font-size: 18px;
+        }
+    }
+}
