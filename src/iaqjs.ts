@@ -137,8 +137,11 @@ export default class IAQ{
     private generateRadialSvg(s: number, theme?: string, size?: string): Element {
         let i = this.getIndicatorValues(s)
         let textFill = "#021449"
+        let opacity = 1
         if(theme == "dark" || theme == "blue"){
             textFill = "#ffffff"
+        } else {
+            opacity = 0;
         }
         let svgSize: number = 72;
         let viewBox = "0 0 36 36"
@@ -146,8 +149,30 @@ export default class IAQ{
             svgSize = 54;
             // viewBox = "0 0 64 64"
         }
-        let str = `<svg viewBox="${viewBox}" width="${svgSize}px" height="${svgSize}px"> <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4" stroke="${i.color}" style="stroke-opacity: 0.09;" data-stroke></path> <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${i.color}" stroke-width="4" stroke-dasharray="${i.score},100" stroke-linecap="round" data-stroke-dasharray></path> <text x="10" y="23.5" font-size="14px" font-weight="300" fill="${textFill}" data-text>${Math.round(i.score)}</text></svg>`
+        let str = `
+        <svg viewBox="${viewBox}" width="${svgSize}px" height="${svgSize}px">
+            <defs>
+                <filter id="gaussianBlur">
+                    <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+                </filter>
+            </defs>
+            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4" stroke="${i.color}" style="stroke-opacity: 0.09;" data-stroke></path>
+            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${i.color}" style="filter: url(#gaussianBlur);stroke-opacity:${opacity}" stroke-width="4" stroke-dasharray="${i.score},100" stroke-linecap="round" data-stroke-dasharray></path>
+            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${i.color}" stroke-width="4" stroke-dasharray="${i.score},100" stroke-linecap="round" data-stroke-dasharray></path>
+            <text x="10" y="23.5" font-size="14px" font-weight="300" fill="${textFill}" data-text>${Math.round(i.score)}</text>
+        </svg>`
         return htmlToElement(str);
+    }
+    private getDisplayVal(measurement: Measurement): any{
+     if(measurement.curVal){
+        if(!isNaN(Number(measurement.curVal))){
+             return Math.round(measurement.curVal * 10)/10
+        } else {
+            return measurement.curVal
+        }
+     } else {
+         return Math.round(measurement.curScore * 10 )/10
+     }   
     }
     private updateElement(data: Data, dom: Element, widgetId: string, options: Options): void{
         let clickUrl = new URL(this.clickUrl + `/wc/${widgetId}`);
@@ -190,7 +215,7 @@ export default class IAQ{
                 // measurementIcon.setAttribute('width', '32px');
                 iaqIndicator.appendChild(measurementIcon);
                 iaqIndicator.classList.add('iaq-measurement-icon')
-                iaqName.querySelector('[data-name]').innerHTML = measurement.curVal || measurement.curScore;
+                iaqName.querySelector('[data-name]').innerHTML = this.getDisplayVal(measurement)
                 if(measurement.unit){
                     iaqName.querySelector('[data-unit]').innerHTML = measurement.unit
                 }
@@ -235,19 +260,19 @@ export default class IAQ{
             childNode.querySelector('[data-iaq-container]')?.setAttribute("target", "_blank")
             iaqContainerClasses.forEach((el) =>  childNode.querySelector('[data-iaq-container]').classList.add(el))
             // Add Name
-            childNode.querySelector('[data-value]').innerHTML = measurement.curVal || measurement.curScore;
+            childNode.querySelector('[data-value]').innerHTML = this.getDisplayVal(measurement)
             if(measurement.unit){
                 childNode.querySelector('[data-unit]').innerHTML = measurement.unit;
             }
             let measurementIcon = htmlToElement(measurement.icon);
-            measurementIcon.setAttribute('height', '32px');
-            measurementIcon.setAttribute('width', '32px');
+            measurementIcon.setAttribute('height', '36px');
+            measurementIcon.setAttribute('width', '36px');
             if(options.size == "large"){
                 measurementIcon.setAttribute('height', '24px');
                 measurementIcon.setAttribute('width', '24px');
             }
             childNode.querySelector('.iaq-measurement-icon').appendChild(measurementIcon)
-            childNode.querySelector('.iaq-measurement-name').innerHTML = measurement.name
+            childNode.querySelector('.iaq-measurement-name').innerHTML = data.name
             let indicators = this.getIndicatorValues(measurement.curScore);
             childNode.querySelector('.iaq-score-indicator').innerHTML = indicators.text;
             childNode.querySelector('.iaq-score-indicator').classList.add(indicators.class)

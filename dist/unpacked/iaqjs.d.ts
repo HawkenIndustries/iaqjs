@@ -19,6 +19,7 @@ export default class IAQ {
     getData(widgetId: string, generate?: Boolean): Promise<Data>;
     private getIndicatorValues;
     private generateRadialSvg;
+    private getDisplayVal;
     private updateElement;
 }
 export {};

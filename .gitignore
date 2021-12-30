@@ -6,3 +6,4 @@ src/*.test.ts
 .env
 copier.js
 *.code-workspace
+prodtest

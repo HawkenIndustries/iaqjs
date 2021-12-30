@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 
 $defaultFont: 'Roboto', sans-serif;
 $lightBg: #ffffff;
@@ -23,7 +23,7 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
     width: 100%;
     height: 100%;
     font-family: $defaultFont;
-    font-weight: 400;
+    font-weight: 300;
     display: flex;
     .iaq-score-moderate {
         color: $scoreModerate;
@@ -89,7 +89,7 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
                         fill: $lightText;
                     }
                 }
-              
+            
             }
         }
         &.iaq-dark {
@@ -116,6 +116,7 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: visible;
         }
         .iaq-measurement-details {
             width: 50%;
@@ -123,8 +124,10 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
             display: flex;
             flex-direction: column;
             justify-content: center;
+            > * {
+                margin-left: 5px;
+            }
             .iaq-measurement-name {
-                margin-left: 18px;
                 line-height: 32px;
                 font-size: 20px;
                 [data-unit] {
@@ -132,19 +135,20 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
                 }
             }
             .iaq-measurement-indicator {
-                margin-left:18px;
                 line-height: 30px;
                 font-size: 16px;
-                font-family: Roboto;
             }
         }
         .iaq-logo {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             flex-direction: column;
             height: 100%;
             width: 25%;
+             > * {
+                margin-right: 35px;
+            }
             .iaq-logo-measurement {
                 font-size: 16px;
                 line-height: 30px;
@@ -233,40 +237,42 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
             }
         }
         .iaq-indicator {
-            width: 25%;
+            width: 20%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: visible;
         }
         .iaq-measurement-details {
-            width: 50%;
+            width: 55%;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             .iaq-measurement-name {
-                margin-left: 16px;
                 line-height: 28px;
                 font-size: 18px;
+                // font-weight: 400;
                 [data-unit] {
                     font-size: 12px;
                 }
             }
             .iaq-measurement-indicator {
-                margin-left:16px;
                 line-height:20px;
                 font-size: 14px;
-                font-family: Roboto;
             }
         }
         .iaq-logo {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             flex-direction: column;
             height: 100%;
             width: 25%;
+            > * {
+                margin-right: 19.2px;
+            }
             .iaq-logo-measurement {
                 font-size: 14px;
                 line-height: 20px;
@@ -369,7 +375,7 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
         }
         .iaq-measurement-details {
             height: 100%;
-            width: 60%;
+            width: 80%;
             position: relative;
             display: flex;
             flex-direction: column;;
@@ -383,7 +389,6 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
             .iaq-measurement-values {
                 font-size: 48px;
                 line-height: 62px;
-                font-weight: 300;
                 [data-unit] {
                     font-size: 18px;
                 }
@@ -395,14 +400,14 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
         }
         .iaq-logo-and-indicator {
             height: 100%;
-            width: 40%;
+            width: 20%;
             position: relative;
             > * {
                 position: absolute;
                 right: 24px;
             }
             .iaq-logo {
-                bottom: 34px;
+                bottom: 22px;
             }
             .iaq-score-indicator {
                 top: 24px;
@@ -496,7 +501,7 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
         }
         .iaq-measurement-details {
             height: 100%;
-            width: 60%;
+            width: 80%;
             position: relative;
             display: flex;
             flex-direction: column;;
@@ -509,7 +514,6 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
             } 
             .iaq-measurement-values {
                 font-size: 24px;
-                font-weight: 300;
                 [data-unit] {
                     font-size: 18px;
                 }
@@ -521,14 +525,14 @@ $blueGradient: linear-gradient(125.06deg, #3456F7 26.15%, #00188A 141.6%);
         }
         .iaq-logo-and-indicator {
             height: 100%;
-            width: 40%;
+            width: 20%;
             position: relative;
             > * {
                 position: absolute;
                 right: 16px;
             }
             .iaq-logo {
-                bottom: 22px;
+                bottom: 16px;
             }
             .iaq-score-indicator {
                 top: 16px;
