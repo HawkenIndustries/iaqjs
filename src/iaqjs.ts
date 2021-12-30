@@ -163,7 +163,7 @@ export default class IAQ{
         let str = `
         <svg viewBox="${viewBox}" width="${svgSize}px" height="${svgSize}px" data-radial-graph>
             <defs>
-                <filter id="gaussianBlur">
+                <filter id="gaussianBlur" height="200%" x="-20%" y="-20%" width="200%">
                     <feGaussianBlur stdDeviation="2"></feGaussianBlur>
                 </filter>
             </defs>
