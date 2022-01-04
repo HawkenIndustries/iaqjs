@@ -8,53 +8,90 @@
     npm install iaqjs
 ```
 
-```js
+```jsß
     import IAQ from 'iaqjs'
 ```
 
 Javascript
 
 ```html
-    <script src="/path/to/js">
+    <script src="https://a.iaq.ai/js/iaq.min.js">
     <script>
-        let iaq = new window.IAQ();
+        var IAQ = new window.IAQ();
     </script> 
 ```
 
+## Widgets
+
+The library provides 4 different sizes of widgets. Each of these widgets can be further customized with different colors and background gradients. 
+
+These widgets can be placed anywhere on your webpage and doesn't require any additional css
+
+### Sizes
+
+* Mini Widget: Best suited for mobile.
+
+    ![Widget Mini](samples/sizePreviewMini.svg)
+
+* Small Widget
+
+    ![Widget Small](samples/sizePreviewSmall1.svg)
+    ![Widget Small](samples/sizePreviewSmall2.svg)
+    
+* Medium Widget
+
+    ![Widget Medium](samples/sizePreviewBig.svg)
+
+* Large Widget
+    ![Widget Large](samples/sizePreivewLarge.svg)
+
+## Colors
+
+* Light
+
+    ![Light Color](samples/colorPreviewLight2.svg)
+* Light2: Light color with borders
+
+    ![Light Color](samples/colorPreviewLight2.svg)
+* Blue:
+
+    ![Blue Color](samples/colorPreviewBlue.svg)
+* Dark:
+
+    ![Blue Color](samples/colorPreviewDark.svg)
 ## Usage
 
 * Initialize
 ```typescript
-    var AQ = new IAQ("clientKey")
-    
+    var AQ = new IAQ("yourClientKey", "customHost" userParams)
+    // customHost? String - Optional parameter. When provided IAQ class will makes requests to the custom host instead of https://a.iaq.ai
+    // userParam? Object - Optional parameter. When provided IAQ class will append any parameters provided when making requests to host
 ```
-* Add widget or measurements to DOM:  Call the method generate by passing a DOM and options Object
-
+* Add widget to a DOM
+    * Call method generate and provide it with a DOM and widget id
 ```typescript
 
-    AQ.generate(domElement, options) // Check Options interface
+    AQ.generate(domElement: Element, widgetId: string, options: Options) // Check Options interface
     interface Options {
-        measurementIds?: Array<string>,
-        widgetId?: string,
-        autoUpdate?: Boolean, // Updates the widget every 5 minutes, Default True
-        theme?: Theme // Provide a theme object, Default theme provided
-        size?: Size
-    }
-    interface Theme {
-        scoreColor: string,
-        backgroundColor: string,
-        iconColor: string,
-        unitColor: string,
+        theme: 'dark' | 'light' | 'light2' | 'blue',
+        size: 'mini' | 'small' | 'medium' | 'large',
+        bgGraßdient?: Boolean, // Set a background gradient - Default true
+        iconMode?: Boolean // on size mini and small show icon or radial graph Default true
     }
 ```
-* Data: You can also retrieve data by calling the method data, it takes options (See interface options) as an argument
+* Data: You can also retrieve data by calling the method data
 
 ```typescript
     // Promises and async/await supported
-    AQ.data(options).then(function(result) {
+    AQ.data("widgetId").then(function(result) {
         // result is a data Object. Check Reference below
         console.log(result)
     })
+
+     interface Data {
+        name: String,
+        measurements: Array<Measurement>
+    }
 
     interface Measurement {
         type: string,
@@ -64,10 +101,6 @@ Javascript
         unit?: string,
         name?: string,
         toUse?: string // some measurement only have curScore, toUse denotes what to display
-    }
-    interface Data {
-        name: String,
-        measurements: Array<Measurement>
     }
 ```
 
