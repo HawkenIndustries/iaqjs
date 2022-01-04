@@ -76,7 +76,7 @@ These widgets can be placed anywhere on your webpage and doesn't require any add
     interface Options {
         theme: 'dark' | 'light' | 'light2' | 'blue',
         size: 'mini' | 'small' | 'medium' | 'large',
-        bgGraßdient?: Boolean, // Set a background gradient - Default true
+        bgGradient?: Boolean, // Set a background gradient - Default true
         iconMode?: Boolean // on size mini and small show icon or radial graph Default true
     }
 ```
