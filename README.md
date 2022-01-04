@@ -43,6 +43,7 @@ These widgets can be placed anywhere on your webpage and doesn't require any add
     ![Widget Medium](samples/sizePreviewBig.svg)
 
 * Large Widget
+    
     ![Widget Large](samples/sizePreivewLarge.svg)
 
 ## Colors
